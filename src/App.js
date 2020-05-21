@@ -1,9 +1,11 @@
 import React from "react";
 
+import TierList from "./components/TierList";
+
 export default () => {
   return (
     <div>
-      <h1>Tier List</h1>
+      <TierList />
     </div>
   );
 };
