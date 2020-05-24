@@ -1,9 +1,28 @@
-export const initialData = [
-  { tierValue: "S" },
-  { tierValue: "A" },
-  { tierValue: "B" },
-  { tierValue: "C" },
-  { tierValue: "D" },
-  { tierValue: "E" },
-  { tierValue: "F" },
-];
+export const initialData = {
+  rows: [
+    { tierValue: "S" },
+    { tierValue: "A" },
+    { tierValue: "B" },
+    { tierValue: "C" },
+    { tierValue: "D" },
+    { tierValue: "E" },
+    { tierValue: "F" },
+  ],
+  items: [
+    { name: "Lucio" },
+    { name: "Ana" },
+    { name: "Sombra" },
+    { name: "Hanzo" },
+    { name: "Genji" },
+    { name: "Pharah" },
+    { name: "Mei" },
+    { name: "Torbjorn" },
+    { name: "Widowmaker" },
+    { name: "Winston" },
+    { name: "Roadhog" },
+    { name: "Soldier 76" },
+    { name: "Doomfist" },
+    { name: "Echo" },
+    { name: "Symmetra" },
+  ],
+};

@@ -8,22 +8,28 @@ const StyledTableRow = styled.tr`
   `};
 `;
 
-const StyledTableCellValue = styled.td`
+const RowValueContainer = styled.td`
   display: flex;
   justify-content: center;
 `;
 
-const StyledTableCellItems = styled.td`
+const RowItems = styled.td`
   width: 90%;
   padding-left: 0.5rem;
+`;
+
+const RowValueText = styled.h5`
+  display: inline-block;
 `;
 
 class TableRow extends Component {
   render() {
     return (
       <StyledTableRow>
-        <StyledTableCellValue>{this.props.data}</StyledTableCellValue>
-        <StyledTableCellItems />
+        <RowValueContainer>
+          <RowValueText>{this.props.data}</RowValueText>
+        </RowValueContainer>
+        <RowItems />
       </StyledTableRow>
     );
   }
