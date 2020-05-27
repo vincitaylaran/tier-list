@@ -18,8 +18,8 @@ class Table extends Component {
       <Container>
         <StyledTable>
           <tbody>
-            {this.props.data.map((item, index) => (
-              <TableRow data={item.tierValue} key={index} />
+            {this.props.data.map((item) => (
+              <TableRow data={item.tierValue} key={item.rowId} />
             ))}
           </tbody>
         </StyledTable>
