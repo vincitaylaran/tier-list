@@ -6,6 +6,8 @@ import { Draggable } from "react-beautiful-dnd";
 const Container = styled.div`
   display: flex;
   justify-content: center;
+  width: 10rem;
+  margin: 0.05rem;
 
   ${({ color = chroma.random() }) => css`
     background-color: ${color};

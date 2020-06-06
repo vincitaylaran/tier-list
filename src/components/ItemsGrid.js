@@ -4,16 +4,13 @@ import { Droppable } from "react-beautiful-dnd";
 import Item from "./Item";
 
 const Grid = styled.div`
-  display: grid;
-  grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
-  grid-column-gap: 0.1rem;
-  grid-row-gap: 0.1rem;
+  display: flex;
 `;
 
 class ItemsGrid extends Component {
   render() {
     return (
-      <Droppable droppableId={this.props.id}>
+      <Droppable droppableId={this.props.id} direction="horizontal">
         {(provided) => {
           return (
             <Grid ref={provided.innerRef} {...provided.droppableProps}>

@@ -1,12 +1,12 @@
 export const initialData = {
   rows: [
-    { rowId: "row-1", tierValue: "S", itemIds: [] },
-    { rowId: "row-2", tierValue: "A", itemIds: [] },
-    { rowId: "row-3", tierValue: "B", itemIds: [] },
-    { rowId: "row-4", tierValue: "C", itemIds: [] },
-    { rowId: "row-5", tierValue: "D", itemIds: [] },
-    { rowId: "row-6", tierValue: "E", itemIds: [] },
-    { rowId: "row-7", tierValue: "F", itemIds: [] },
+    { rowId: "row-1", tierValue: "S", items: [] },
+    { rowId: "row-2", tierValue: "A", items: [] },
+    { rowId: "row-3", tierValue: "B", items: [] },
+    { rowId: "row-4", tierValue: "C", items: [] },
+    { rowId: "row-5", tierValue: "D", items: [] },
+    { rowId: "row-6", tierValue: "E", items: [] },
+    { rowId: "row-7", tierValue: "F", items: [] },
   ],
   items: {
     gridMain: {
