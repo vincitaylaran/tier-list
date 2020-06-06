@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import styled, { css } from "styled-components";
-import chroma from "chroma-js";
+import styled from "styled-components";
 import { Draggable } from "react-beautiful-dnd";
 
 const Container = styled.div`
@@ -9,9 +8,7 @@ const Container = styled.div`
   width: 10rem;
   margin: 0.05rem;
 
-  ${({ color = chroma.random() }) => css`
-    background-color: ${color};
-  `}
+  background-color: lightgrey;
 `;
 
 const Value = styled.h5`
@@ -33,7 +30,7 @@ class Item extends Component {
               {...provided.draggableProps}
               {...provided.dragHandleProps}
             >
-              <Value>{this.props.itemId}</Value>
+              <Value>{this.props.itemValue[0] + this.props.itemId}</Value>
             </Container>
           );
         }}

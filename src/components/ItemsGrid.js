@@ -15,7 +15,11 @@ class ItemsGrid extends Component {
           return (
             <Grid ref={provided.innerRef} {...provided.droppableProps}>
               {this.props.data.map((item) => (
-                <Item key={item.itemId} itemId={item.itemId} />
+                <Item
+                  key={item.itemId}
+                  itemId={item.itemId}
+                  itemValue={item.name}
+                />
               ))}
               {provided.placeholder}
             </Grid>

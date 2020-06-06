@@ -29,6 +29,16 @@ class TierList extends Component {
     let rows = JSON.parse(JSON.stringify(this.state.rows));
     let items = JSON.parse(JSON.stringify(this.state.items));
 
+    if (
+      source.droppableId === destination.droppableId &&
+      source.index !== destination.index
+    ) {
+      // TODO: write logic to rearrange items if dropped in the same droppable.
+      console.log("is in same droppable");
+
+      return;
+    }
+
     let item = items.gridMain.gridItems.splice(source.index - 1, 1)[0];
 
     rows.forEach((row) => {

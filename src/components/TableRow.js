@@ -1,14 +1,11 @@
 import React, { Component } from "react";
-import styled, { css } from "styled-components";
-import chroma from "chroma-js";
+import styled from "styled-components";
 import { Droppable } from "react-beautiful-dnd";
 
 // TODO: create a component/view for the item.
 
 const StyledTableRow = styled.tr`
-  ${({ color = chroma.random() }) => css`
-    background-color: ${color};
-  `};
+  background-color: ${(props) => props.backgroundColor};
 `;
 
 const RowValueContainer = styled.td`
@@ -20,8 +17,7 @@ const RowValueContainer = styled.td`
 const RowItems = styled.td`
   width: 90%;
   padding-left: 0.5rem;
-  background-color: ${(props) =>
-    props.isDraggingOver ? "lightgrey" : "lightgrey"};
+  background-color: ${(props) => (props.isDraggingOver ? "white" : "#1A1A1A")};
 `;
 
 const RowValueText = styled.h5`
@@ -31,9 +27,9 @@ const RowValueText = styled.h5`
 class TableRow extends Component {
   render() {
     return (
-      <StyledTableRow>
+      <StyledTableRow backgroundColor={this.props.color}>
         <RowValueContainer>
-          <RowValueText>{this.props.data}</RowValueText>
+          <RowValueText>{this.props.tierValue}</RowValueText>
         </RowValueContainer>
         <Droppable droppableId={this.props.id} direction="horizontal">
           {(provided, snapshot) => (

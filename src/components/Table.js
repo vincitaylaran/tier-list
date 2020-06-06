@@ -13,7 +13,12 @@ class Table extends Component {
       <StyledTable>
         <tbody>
           {this.props.data.map((row, index) => (
-            <TableRow data={row.tierValue} key={index} id={row.rowId} />
+            <TableRow
+              tierValue={row.tierValue}
+              color={row.color}
+              key={index}
+              id={row.rowId}
+            />
           ))}
         </tbody>
       </StyledTable>
