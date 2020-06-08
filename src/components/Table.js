@@ -4,6 +4,7 @@ import styled from "styled-components";
 import TableRow from "./TableRow";
 
 const StyledTable = styled.table`
+  background-color: #000;
   width: 100%;
 `;
 

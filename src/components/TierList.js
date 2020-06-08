@@ -11,11 +11,6 @@ import styled from "styled-components";
 
 const Container = styled.div``;
 
-const TableContainer = styled.div`
-  background-color: black;
-  margin-bottom: 1rem;
-`;
-
 class TierList extends Component {
   state = {
     rows: initialData.rows,
@@ -55,9 +50,7 @@ class TierList extends Component {
     return (
       <Container>
         <DragDropContext onDragEnd={this.onDragEnd}>
-          <TableContainer>
-            <Table data={this.state.rows} />
-          </TableContainer>
+          <Table data={this.state.rows} />
           <ItemsGrid
             data={this.state.items.gridMain.gridItems}
             id={this.state.items.gridMain.gridId}
