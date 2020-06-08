@@ -22,12 +22,13 @@ class TierList extends Component {
     items: initialData.items,
   };
 
-  onDragEnd = async (required) => {
+  onDragEnd = (required) => {
     const { source, destination } = required;
 
     // create deep copies of the 'rows' and 'items' in state.
     let rows = JSON.parse(JSON.stringify(this.state.rows));
     let items = JSON.parse(JSON.stringify(this.state.items));
+    let item;
 
     if (
       source.droppableId === destination.droppableId &&
@@ -39,7 +40,7 @@ class TierList extends Component {
       return;
     }
 
-    let item = items.gridMain.gridItems.splice(source.index - 1, 1)[0];
+    item = items.gridMain.gridItems.splice(source.index - 1, 1)[0];
 
     rows.forEach((row) => {
       if (row.rowId === destination.droppableId) {
@@ -47,7 +48,7 @@ class TierList extends Component {
       }
     });
 
-    await this.setState({ rows });
+    this.setState({ rows, items });
   };
 
   render() {

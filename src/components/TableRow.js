@@ -1,26 +1,26 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { Droppable } from "react-beautiful-dnd";
-
-// TODO: create a component/view for the item.
+import Item from "./Item";
 
 const StyledTableRow = styled.tr`
   background-color: ${(props) => props.backgroundColor};
 `;
 
-const RowValueContainer = styled.td`
-  display: flex;
-  justify-content: center;
-  width: 90%;
+const ValueContainer = styled.td`
+  width: 7%;
+  text-align: center;
 `;
 
-const RowItems = styled.td`
-  width: 90%;
-  padding-left: 0.5rem;
+const ItemsContainer = styled.td`
+  width: 100%;
+  padding-left: 0.1rem;
   background-color: ${(props) => (props.isDraggingOver ? "white" : "#1A1A1A")};
 `;
 
-const RowValueText = styled.h5`
+const ValueText = styled.h5``;
+
+const PlaceholderManager = styled.div`
   display: inline-block;
 `;
 
@@ -28,18 +28,27 @@ class TableRow extends Component {
   render() {
     return (
       <StyledTableRow backgroundColor={this.props.color}>
-        <RowValueContainer>
-          <RowValueText>{this.props.tierValue}</RowValueText>
-        </RowValueContainer>
+        <ValueContainer>
+          <ValueText>{this.props.tierValue}</ValueText>
+        </ValueContainer>
         <Droppable droppableId={this.props.id} direction="horizontal">
           {(provided, snapshot) => (
-            <RowItems
+            <ItemsContainer
               isDraggingOver={snapshot.isDraggingOver}
               ref={provided.innerRef}
               {...provided.droppableProps}
             >
+              {this.props.items.map((item, index) => {
+                return (
+                  <Item
+                    key={index}
+                    itemValue={item.name}
+                    itemId={item.itemId}
+                  />
+                );
+              })}
               {provided.placeholder}
-            </RowItems>
+            </ItemsContainer>
           )}
         </Droppable>
       </StyledTableRow>

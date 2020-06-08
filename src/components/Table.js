@@ -16,6 +16,7 @@ class Table extends Component {
             <TableRow
               tierValue={row.tierValue}
               color={row.color}
+              items={row.items}
               key={index}
               id={row.rowId}
             />

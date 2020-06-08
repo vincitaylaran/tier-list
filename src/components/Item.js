@@ -3,11 +3,10 @@ import styled from "styled-components";
 import { Draggable } from "react-beautiful-dnd";
 
 const Container = styled.div`
-  display: flex;
-  justify-content: center;
-  width: 10rem;
-  margin: 0.05rem;
-
+  display: inline-block;
+  width: 65px;
+  margin: 0.1rem;
+  text-align: center;
   background-color: lightgrey;
 `;
 
@@ -17,6 +16,8 @@ const Value = styled.h5`
 
 class Item extends Component {
   render() {
+    // console.log("<Item /> props -> ", this.props);
+
     return (
       <Draggable
         draggableId={this.props.itemId}

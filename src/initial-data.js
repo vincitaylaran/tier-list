@@ -1,12 +1,28 @@
 export const initialData = {
   rows: [
-    { rowId: "row-1", tierValue: "S", items: [], color: "rgb(255, 127, 127)" },
+    {
+      rowId: "row-1",
+      tierValue: "S",
+      items: [
+        { itemId: "16", name: "Test" },
+        { itemId: "17", name: "Test" },
+      ],
+      color: "rgb(255, 127, 127)",
+    },
     { rowId: "row-2", tierValue: "A", items: [], color: "rgb(255, 191, 127)" },
     { rowId: "row-3", tierValue: "B", items: [], color: "rgb(255, 223, 127)" },
     { rowId: "row-4", tierValue: "C", items: [], color: "rgb(255, 255, 127)" },
     { rowId: "row-5", tierValue: "D", items: [], color: "rgb(191, 255, 127)" },
     { rowId: "row-6", tierValue: "E", items: [], color: "rgb(127, 255, 127)" },
-    { rowId: "row-7", tierValue: "F", items: [], color: "rgb(127, 255, 255)" },
+    {
+      rowId: "row-7",
+      tierValue: "F",
+      items: [
+        { itemId: "18", name: "Test" },
+        { itemId: "19", name: "Test" },
+      ],
+      color: "rgb(127, 255, 255)",
+    },
   ],
   items: {
     gridMain: {
