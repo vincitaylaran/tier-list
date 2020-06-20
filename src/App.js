@@ -2,15 +2,6 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-<<<<<<< HEAD
-import TierList from "./components/TierList";
-
-export default () => {
-  return (
-    <div>
-      <h1>From redo branch</h1>
-      <TierList />
-=======
 function App() {
   return (
     <div className="App">
@@ -28,7 +19,6 @@ function App() {
           Learn React
         </a>
       </header>
->>>>>>> parent of 36b529f... delete unused files, add dependencies
     </div>
   );
 }
