@@ -24,12 +24,14 @@ const Value = styled.div`
 
   display: flex;
   justify-content: center;
+  align-items: center;
 
   margin: 0.05rem;
 `;
 
 const Items = styled.div`
   display: flex;
+  flex-wrap: wrap;
   background-color: ${(props) => (props.color ? props.color : "#333")};
   width: 89%;
 `;
@@ -41,6 +43,7 @@ const Actions = styled.div`
   justify-content: center;
   margin: 0.05rem;
   color: white;
+  flex-wrap: wrap;
 `;
 
 const Action = styled.div`
@@ -61,6 +64,9 @@ class TierList extends Component {
                 <h2>{row.tier}</h2>
               </Value>
               <Items color={row.itemsContainerColor}>
+                <Item value="Item 1" />
+                <Item value="Item 2" />
+                <Item value="Item 3" />
                 <Item value="Item 1" />
                 <Item value="Item 2" />
                 <Item value="Item 3" />
