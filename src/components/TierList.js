@@ -3,9 +3,12 @@ import styled from "styled-components";
 
 import Item from "./Item";
 
+import { Droppable } from "react-beautiful-dnd";
+
 const Container = styled.div`
   background-color: black;
   padding: 0.04rem;
+  margin-bottom: 1rem;
 `;
 
 const Row = styled.div`
@@ -14,8 +17,9 @@ const Row = styled.div`
 
   display: flex;
   flex-direction: row;
-
-  margin: 0.05rem;
+  border-color: black;
+  border-width: 1px;
+  border-style: solid;
 `;
 
 const Value = styled.div`
@@ -27,6 +31,7 @@ const Value = styled.div`
   align-items: center;
 
   margin: 0.05rem;
+  font-family: 15px arial;
 `;
 
 const Items = styled.div`
@@ -60,17 +65,16 @@ class TierList extends Component {
         {this.props.rows.map((row, index) => {
           return (
             <Row key={index}>
-              <Value color={row.tierColor}>
-                <h2>{row.tier}</h2>
-              </Value>
-              <Items color={row.itemsContainerColor}>
-                <Item value="Item 1" />
-                <Item value="Item 2" />
-                <Item value="Item 3" />
-                <Item value="Item 1" />
-                <Item value="Item 2" />
-                <Item value="Item 3" />
-              </Items>
+              <Value color={row.tierColor}>{row.tier}</Value>
+              <Droppable droppableId={row.id + row.tier}>
+                {() => (
+                  <Items color={row.itemsContainerColor}>
+                    <Item value="Item 1" />
+                    <Item value="Item 2" />
+                    <Item value="Item 3" />
+                  </Items>
+                )}
+              </Droppable>
               <Actions>
                 <Action>A1</Action>
                 <Action>A2</Action>

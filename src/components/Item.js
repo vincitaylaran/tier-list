@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import styled from "styled-components";
 
 const Container = styled.div`
-  background-color: red;
+  background-color: ${(props) => (props.color ? props.color : "red")};
   width: 80px;
   height: 80px;
 
@@ -10,13 +10,14 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
 
-  margin: 0.05rem;
+  margin-left: 0.05rem;
+  margin-right: 0.05rem;
 `;
 
 class Item extends Component {
   render() {
     return (
-      <Container>
+      <Container color={this.props.color}>
         <h3>{this.props.value}</h3>
       </Container>
     );
