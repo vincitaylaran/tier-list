@@ -1,71 +1,77 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 
+import Item from "./Item";
+
 const Container = styled.div`
-  display: flex;
-  flex-direction: row;
+  background-color: black;
+  padding: 0.04rem;
 `;
 
 const Row = styled.div`
   width: 100%;
-  background-color: lightgrey;
+  background-color: black;
 
   display: flex;
+  flex-direction: row;
+
+  margin: 0.05rem;
 `;
 
 const Value = styled.div`
-  background-color: blue;
+  background-color: ${(props) => (props.color ? props.color : "#FFF")};
   width: 9%;
 
   display: flex;
   justify-content: center;
+
+  margin: 0.05rem;
 `;
 
 const Items = styled.div`
   display: flex;
-  background-color: orange;
+  background-color: ${(props) => (props.color ? props.color : "#333")};
   width: 89%;
-`;
-
-const Item = styled.div`
-  background-color: red;
 `;
 
 const Actions = styled.div`
   display: flex;
-  background-color: lightgreen;
+  background-color: black;
+  width: 9%;
+  justify-content: center;
+  margin: 0.05rem;
+  color: white;
 `;
 
-const Action = styled.div``;
+const Action = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.05rem;
+`;
 
 class TierList extends Component {
   render() {
     return (
       <Container>
-        <Row>
-          <Value>
-            <h1>S</h1>
-          </Value>
-          <Items>
-            <Item>
-              <h3>Item 1</h3>
-            </Item>
-            <Item>
-              <h3>Item 2</h3>
-            </Item>
-            <Item>
-              <h3>Item 3</h3>
-            </Item>
-          </Items>
-          <Actions>
-            <Action>
-              <h3>A1</h3>
-            </Action>
-            <Action>
-              <h3>A2</h3>
-            </Action>
-          </Actions>
-        </Row>
+        {this.props.rows.map((row, index) => {
+          return (
+            <Row key={index}>
+              <Value color={row.tierColor}>
+                <h2>{row.tier}</h2>
+              </Value>
+              <Items color={row.itemsContainerColor}>
+                <Item value="Item 1" />
+                <Item value="Item 2" />
+                <Item value="Item 3" />
+              </Items>
+              <Actions>
+                <Action>A1</Action>
+                <Action>A2</Action>
+              </Actions>
+            </Row>
+          );
+        })}
       </Container>
     );
   }
