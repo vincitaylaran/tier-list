@@ -74,11 +74,15 @@ class TierList extends Component {
                     ref={provided.innerRef}
                     color={row.itemsContainerColor}
                   >
-                    {row.items.length > 0 ? (
-                      <Item index={index} />
-                    ) : (
-                      provided.placeholder
-                    )}
+                    {row.items.map((item, index) => (
+                      <Item
+                        key={index}
+                        index={index}
+                        value={item.value[0] + item.id}
+                        color="lightblue"
+                      />
+                    ))}
+                    {provided.placeholder}
                   </Items>
                 )}
               </Droppable>

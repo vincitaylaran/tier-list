@@ -10,14 +10,19 @@ import { DragDropContext } from "react-beautiful-dnd";
 class App extends Component {
   state = { rows: data.rows, items: data.items };
 
+  onDragStart = (required) => {
+    const { source, destination } = required;
+
+    console.log(required);
+    console.log("items BEFORE -> ", this.state.items.list);
+  };
+
   onDragEnd = (required) => {
     const { source, destination } = required;
     let rows = JSON.parse(JSON.stringify(this.state.rows));
     let items = JSON.parse(JSON.stringify(this.state.items));
     let item;
     console.log(required);
-
-    console.log("items BEFORE -> ", items.list);
 
     if (source.droppableId === destination.droppableId) {
       return;
@@ -42,7 +47,10 @@ class App extends Component {
   render() {
     return (
       <div>
-        <DragDropContext onDragEnd={this.onDragEnd}>
+        <DragDropContext
+          onDragStart={this.onDragStart}
+          onDragEnd={this.onDragEnd}
+        >
           <TierList rows={this.state.rows} />
           <Items items={this.state.items} />
         </DragDropContext>
