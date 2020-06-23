@@ -16,11 +16,25 @@ class Items extends Component {
 
   render() {
     return (
-      <Container>
-        {this.props.items.map((item, index) => (
-          <Item key={index} value={item.value[0] + item.id} color="lightblue" />
-        ))}
-      </Container>
+      <Droppable
+        droppableId={this.props.items.containerId}
+        direction="horizontal"
+      >
+        {(provided) => (
+          <Container ref={provided.innerRef} {...provided.droppableProps}>
+            {this.props.items.list.map((item, index) => (
+              <Item
+                id={index}
+                key={index}
+                index={index}
+                value={item.value[0] + item.id}
+                color="lightblue"
+              />
+            ))}
+            {provided.placeholder}
+          </Container>
+        )}
+      </Droppable>
     );
   }
 }

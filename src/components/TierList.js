@@ -13,6 +13,7 @@ const Container = styled.div`
 
 const Row = styled.div`
   width: 100%;
+  height: 80px;
   background-color: black;
 
   display: flex;
@@ -66,12 +67,18 @@ class TierList extends Component {
           return (
             <Row key={index}>
               <Value color={row.tierColor}>{row.tier}</Value>
-              <Droppable droppableId={row.id + row.tier}>
-                {() => (
-                  <Items color={row.itemsContainerColor}>
-                    <Item value="Item 1" />
-                    <Item value="Item 2" />
-                    <Item value="Item 3" />
+              <Droppable droppableId={row.id + row.tier} direction="horizontal">
+                {(provided) => (
+                  <Items
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                    color={row.itemsContainerColor}
+                  >
+                    {row.items.length > 0 ? (
+                      <Item index={index} />
+                    ) : (
+                      provided.placeholder
+                    )}
                   </Items>
                 )}
               </Droppable>
