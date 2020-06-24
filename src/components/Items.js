@@ -24,8 +24,8 @@ class Items extends Component {
           <Container ref={provided.innerRef} {...provided.droppableProps}>
             {this.props.items.list.map((item, index) => (
               <Item
-                id={index}
-                key={index}
+                id={item.id}
+                key={item.id}
                 index={index}
                 value={item.value[0] + item.id}
                 color="lightblue"

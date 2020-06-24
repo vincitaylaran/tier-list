@@ -11,37 +11,59 @@ class App extends Component {
   state = { rows: data.rows, items: data.items };
 
   onDragStart = (required) => {
-    const { source, destination } = required;
-
-    console.log(required);
-    console.log("items BEFORE -> ", this.state.items.list);
+    const { source, destination, draggableId } = required;
+    console.log(`item draggableID: ${draggableId}`);
+    console.log("state BEFORE drop: ", this.state);
   };
 
-  onDragEnd = (required) => {
+  onDragEnd = async (required) => {
+    // console.log("items BEFORE -> ", this.state.items.list);
+
     const { source, destination } = required;
     let rows = JSON.parse(JSON.stringify(this.state.rows));
     let items = JSON.parse(JSON.stringify(this.state.items));
     let item;
-    console.log(required);
+    const draggedBetweenRows =
+      source.droppableId.split("-")[0] ===
+      destination.droppableId.split("-")[0];
 
+    // if user rearranges the items within the items container.
     if (source.droppableId === destination.droppableId) {
+      console.log("TO: item list\nFROM: item list");
+
+      if (source.droppableId === items.containerId) {
+        item = items.list.splice(source.index, 1)[0];
+        items.list.splice(destination.index, 0, item);
+        this.setState({ items });
+        return;
+      }
+    }
+
+    // TODO: write logic when dragging items between different rows.
+    if (draggedBetweenRows) {
+      console.log(
+        `TO: row with droppableID '${destination.droppableId}'\nFROM: row with droppableID '${destination.droppableId}'`
+      );
+
       return;
     }
 
-    item = items.list.splice(source.index, 1)[0];
-    console.log("item -> ", item);
+    console.log(
+      `TO: row with droppableID '${destination.droppableId}'\nFROM: item list`
+    );
 
-    console.log("items AFTER -> ", items.list);
+    item = items.list.splice(source.index, 1)[0];
 
     rows.forEach((row) => {
-      if (`${row.id}${row.tier}` === destination.droppableId) {
+      if (`row-${row.id}${row.tier}` === destination.droppableId) {
         row.items.splice(destination.index, 0, item);
       }
     });
 
-    console.log("rows -> ", rows);
+    // console.log(required);
 
-    this.setState({ rows, items });
+    await this.setState({ rows, items });
+    console.log("state AFTER drop: ", this.state);
   };
 
   render() {

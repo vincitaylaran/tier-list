@@ -35,7 +35,7 @@ const Value = styled.div`
   font-family: 15px arial;
 `;
 
-const Items = styled.div`
+const ItemsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   background-color: ${(props) => (props.color ? props.color : "#333")};
@@ -64,26 +64,29 @@ class TierList extends Component {
     return (
       <Container>
         {this.props.rows.map((row, index) => {
+          const droppableId = `row-${row.id}${row.tier}`;
+
           return (
             <Row key={index}>
               <Value color={row.tierColor}>{row.tier}</Value>
-              <Droppable droppableId={row.id + row.tier} direction="horizontal">
+              <Droppable droppableId={droppableId} direction="horizontal">
                 {(provided) => (
-                  <Items
+                  <ItemsContainer
                     {...provided.droppableProps}
                     ref={provided.innerRef}
                     color={row.itemsContainerColor}
                   >
                     {row.items.map((item, index) => (
                       <Item
-                        key={index}
+                        id={item.id}
+                        key={item.id}
                         index={index}
                         value={item.value[0] + item.id}
                         color="lightblue"
                       />
                     ))}
                     {provided.placeholder}
-                  </Items>
+                  </ItemsContainer>
                 )}
               </Droppable>
               <Actions>
