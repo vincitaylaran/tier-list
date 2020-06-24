@@ -12,17 +12,18 @@ class App extends Component {
 
   onDragStart = (required) => {
     const { source, destination, draggableId } = required;
-    console.log(`item draggableID: ${draggableId}`);
-    console.log("state BEFORE drop: ", this.state);
   };
 
   onDragEnd = async (required) => {
     // console.log("items BEFORE -> ", this.state.items.list);
 
-    const { source, destination } = required;
+    const { source, destination, draggableId } = required;
     let rows = JSON.parse(JSON.stringify(this.state.rows));
     let items = JSON.parse(JSON.stringify(this.state.items));
-    let item;
+    let item, row;
+
+    // if the first element is 'row' then it indicates that an item was dragged and dropped between rows.
+    // Each droppable row has a droppable ID that is formatted as such: row-<rowID><rowTier>
     const draggedBetweenRows =
       source.droppableId.split("-")[0] ===
       destination.droppableId.split("-")[0];
@@ -41,10 +42,29 @@ class App extends Component {
 
     // TODO: write logic when dragging items between different rows.
     if (draggedBetweenRows) {
+      let rowItem;
       console.log(
         `TO: row with droppableID '${destination.droppableId}'\nFROM: row with droppableID '${destination.droppableId}'`
       );
 
+      rows.forEach((row) => {
+        if (`row-${row.id}${row.tier}` === source.droppableId) {
+          row.items.forEach((item, index) => {
+            if (item.id === draggableId) {
+              rowItem = row.items.splice(index, 1)[0];
+              console.log("item: ", rowItem);
+            }
+          });
+        }
+      });
+
+      rows.forEach((row) => {
+        if (`row-${row.id}${row.tier}` === destination.droppableId) {
+          row.items.splice(destination.index, 0, rowItem);
+        }
+      });
+
+      this.setState({ rows, items });
       return;
     }
 

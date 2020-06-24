@@ -17,12 +17,6 @@ const Container = styled.div`
   margin-right: 0.05rem;
 `;
 
-const Button = styled.button`
-  height: 50%;
-  width: 50%;
-  margin-bottom: 1rem;
-`;
-
 class Item extends Component {
   render() {
     return (
@@ -35,16 +29,6 @@ class Item extends Component {
             color={this.props.color}
           >
             <h3>{this.props.value}</h3>
-            <Button
-              onClick={() =>
-                console.log(
-                  "Draggable ID: ",
-                  provided.dragHandleProps["data-rbd-drag-handle-draggable-id"]
-                )
-              }
-            >
-              ID
-            </Button>
           </Container>
         )}
       </Draggable>
