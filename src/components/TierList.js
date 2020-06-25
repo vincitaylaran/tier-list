@@ -25,7 +25,7 @@ const Row = styled.div`
 
 const Value = styled.div`
   background-color: ${(props) => (props.color ? props.color : "#FFF")};
-  width: 9%;
+  width: 100px;
 
   display: flex;
   justify-content: center;
@@ -38,7 +38,8 @@ const Value = styled.div`
 const ItemsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  background-color: ${(props) => (props.color ? props.color : "#333")};
+  background-color: ${(props) =>
+    props.isDraggingOver ? "#5e5e5e" : props.color};
   width: 89%;
 `;
 
@@ -70,11 +71,12 @@ class TierList extends Component {
             <Row key={index}>
               <Value color={row.tierColor}>{row.tier}</Value>
               <Droppable droppableId={droppableId} direction="horizontal">
-                {(provided) => (
+                {(provided, snapshot) => (
                   <ItemsContainer
                     {...provided.droppableProps}
                     ref={provided.innerRef}
                     color={row.itemsContainerColor}
+                    isDraggingOver={snapshot.isDraggingOver}
                   >
                     {row.items.map((item, index) => (
                       <Item
