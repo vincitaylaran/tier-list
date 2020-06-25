@@ -29,97 +29,100 @@ class App extends Component {
     console.log("REQUIRED object: ", required);
 
     const { source, destination, draggableId } = required;
-    let rows = JSON.parse(JSON.stringify(this.state.rows));
-    let items = JSON.parse(JSON.stringify(this.state.items));
-    let item;
 
-    // if the first element is 'row' then it indicates that an item was dragged and dropped between rows.
-    // Each droppable row has a droppable ID that is formatted as such: row-<rowID><rowTier>
-    const draggedBetweenRows =
-      source.droppableId.split("-")[0] ===
-      destination.droppableId.split("-")[0];
+    if (destination) {
+      let rows = JSON.parse(JSON.stringify(this.state.rows));
+      let items = JSON.parse(JSON.stringify(this.state.items));
+      let item;
 
-    const draggedFromRowToList =
-      source.droppableId.split("-")[0] === "row" &&
-      destination.droppableId === "items-main";
+      // if the first element is 'row' then it indicates that an item was dragged and dropped between rows.
+      // Each droppable row has a droppable ID that is formatted as such: row-<rowID><rowTier>
+      const draggedBetweenRows =
+        source.droppableId.split("-")[0] ===
+        destination.droppableId.split("-")[0];
 
-    // if user rearranges the items within the items container.
-    if (source.droppableId === destination.droppableId) {
-      console.log("TO: item list\nFROM: item list");
+      const draggedFromRowToList =
+        source.droppableId.split("-")[0] === "row" &&
+        destination.droppableId === "items-main";
 
-      if (source.droppableId === items.containerId) {
-        item = items.list.splice(source.index, 1)[0];
-        items.list.splice(destination.index, 0, item);
-        this.setState({ items });
+      // if user rearranges the items within the items container.
+      if (source.droppableId === destination.droppableId) {
+        console.log("TO: item list\nFROM: item list");
+
+        if (source.droppableId === items.containerId) {
+          item = items.list.splice(source.index, 1)[0];
+          items.list.splice(destination.index, 0, item);
+          this.setState({ items });
+          return;
+        }
+      }
+
+      if (draggedBetweenRows) {
+        let rowItem;
+        console.log(
+          `TO: row with droppableID '${destination.droppableId}'\nFROM: row with droppableID '${destination.droppableId}'`
+        );
+
+        rows.forEach((row) => {
+          if (`row-${row.id}${row.tier}` === source.droppableId) {
+            row.items.forEach((item, index) => {
+              if (item.id === draggableId) {
+                rowItem = row.items.splice(index, 1)[0];
+                console.log("item: ", rowItem);
+              }
+            });
+          }
+        });
+
+        rows.forEach((row) => {
+          if (`row-${row.id}${row.tier}` === destination.droppableId) {
+            row.items.splice(destination.index, 0, rowItem);
+          }
+        });
+
+        this.setState({ rows, items });
         return;
       }
-    }
 
-    if (draggedBetweenRows) {
-      let rowItem;
+      if (draggedFromRowToList) {
+        let rowItem;
+        console.log(
+          `TO: item list\nFROM: row with droppableID '${source.droppableId}'`
+        );
+
+        rows.forEach((row) => {
+          if (`row-${row.id}${row.tier}` === source.droppableId) {
+            row.items.forEach((item, index) => {
+              if (item.id === draggableId) {
+                rowItem = row.items.splice(index, 1)[0];
+                console.log("item: ", rowItem);
+              }
+            });
+          }
+        });
+
+        items.list.splice(destination.index, 0, rowItem);
+        this.setState({ rows, items });
+
+        return;
+      }
+
       console.log(
-        `TO: row with droppableID '${destination.droppableId}'\nFROM: row with droppableID '${destination.droppableId}'`
+        `TO: row with droppableID '${destination.droppableId}'\nFROM: item list`
       );
 
-      rows.forEach((row) => {
-        if (`row-${row.id}${row.tier}` === source.droppableId) {
-          row.items.forEach((item, index) => {
-            if (item.id === draggableId) {
-              rowItem = row.items.splice(index, 1)[0];
-              console.log("item: ", rowItem);
-            }
-          });
-        }
-      });
+      item = items.list.splice(source.index, 1)[0];
 
       rows.forEach((row) => {
         if (`row-${row.id}${row.tier}` === destination.droppableId) {
-          row.items.splice(destination.index, 0, rowItem);
+          row.items.splice(destination.index, 0, item);
         }
       });
 
-      this.setState({ rows, items });
-      return;
+      // console.log(required);
+
+      await this.setState({ rows, items });
     }
-
-    if (draggedFromRowToList) {
-      let rowItem;
-      console.log(
-        `TO: item list\nFROM: row with droppableID '${source.droppableId}'`
-      );
-
-      rows.forEach((row) => {
-        if (`row-${row.id}${row.tier}` === source.droppableId) {
-          row.items.forEach((item, index) => {
-            if (item.id === draggableId) {
-              rowItem = row.items.splice(index, 1)[0];
-              console.log("item: ", rowItem);
-            }
-          });
-        }
-      });
-
-      items.list.splice(destination.index, 0, rowItem);
-      this.setState({ rows, items });
-
-      return;
-    }
-
-    console.log(
-      `TO: row with droppableID '${destination.droppableId}'\nFROM: item list`
-    );
-
-    item = items.list.splice(source.index, 1)[0];
-
-    rows.forEach((row) => {
-      if (`row-${row.id}${row.tier}` === destination.droppableId) {
-        row.items.splice(destination.index, 0, item);
-      }
-    });
-
-    // console.log(required);
-
-    await this.setState({ rows, items });
   };
 
   render() {
