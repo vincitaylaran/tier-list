@@ -5,6 +5,20 @@ import Item from "./Item";
 
 import { Droppable } from "react-beautiful-dnd";
 
+import ExpandLessIcon from "@material-ui/icons/ExpandLess";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import IconButton from "@material-ui/core/IconButton";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+
+// used to override CSS on Material components.
+const theme = createMuiTheme({
+  palette: {
+    primary: {
+      main: "#FFF",
+    },
+  },
+});
+
 const Container = styled.div`
   background-color: black;
   padding: 0.04rem;
@@ -40,27 +54,35 @@ const ItemsContainer = styled.div`
   flex-wrap: wrap;
   background-color: ${(props) =>
     props.isDraggingOver ? "#5e5e5e" : props.color};
-  width: 89%;
+  width: 92%;
 `;
 
-const Actions = styled.div`
+const Arrows = styled.div`
   display: flex;
-  background-color: black;
-  width: 9%;
-  justify-content: center;
-  margin: 0.05rem;
-  color: white;
-  flex-wrap: wrap;
-`;
-
-const Action = styled.div`
-  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 0.05rem;
+  border-color: black;
+  border-width: 1px;
+  border-style: solid;
+  width: 8%;
 `;
 
+const Arrow = styled(IconButton)``;
+
 class TierList extends Component {
+  onArrowUpClick = (event) => {
+    if (this.props.onArrowUpClick) {
+      this.props.onArrowUpClick(event.currentTarget.value);
+    }
+  };
+
+  onArrowDownClick = (event) => {
+    if (this.props.onArrowDownClick) {
+      this.props.onArrowDownClick(event.currentTarget.value);
+    }
+  };
+
   render() {
     return (
       <Container>
@@ -91,10 +113,20 @@ class TierList extends Component {
                   </ItemsContainer>
                 )}
               </Droppable>
-              <Actions>
-                <Action>A1</Action>
-                <Action>A2</Action>
-              </Actions>
+              <Arrows>
+                <MuiThemeProvider theme={theme}>
+                  <Arrow
+                    value={index}
+                    onClick={this.onArrowUpClick}
+                    children={<ExpandLessIcon color="primary" />}
+                  />
+                  <Arrow
+                    value={index}
+                    onClick={this.onArrowDownClick}
+                    children={<ExpandMoreIcon color="primary" />}
+                  />
+                </MuiThemeProvider>
+              </Arrows>
             </Row>
           );
         })}

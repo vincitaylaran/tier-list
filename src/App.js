@@ -11,10 +11,6 @@ import styled from "styled-components";
 
 /**
  * TODO:
- * [x]write logic when dragging from row to items list.
- * [x]write logic when the user hovers an item over a row.
- * write logic to drag rows.
- * check if adding properties to objects such as 'snapshot' or 'provided' is possible.
  */
 
 const Container = styled.div`
@@ -125,12 +121,45 @@ class App extends Component {
     }
   };
 
+  onArrowUpClick = (index) => {
+    let rows = JSON.parse(JSON.stringify(this.state.rows));
+    let row;
+    console.log(`onArrowUpClick\nIndex: ${index}`);
+    if (!index || index - 1 < 0) {
+      return;
+    }
+    row = rows.splice(index, 1)[0];
+    rows.splice(index - 1, 0, row);
+    this.setState({ rows });
+  };
+
+  // FIXME: works only when you click once.
+  onArrowDownClick = (index) => {
+    // console.log(`onArrowDownClick\nIndex: ${index}`);
+    let rows = JSON.parse(JSON.stringify(this.state.rows));
+    let row;
+    if (!index || index + 1 > rows.length - 1) {
+      console.log(`Rows length: ${rows.length}\nIndex: ${index}`);
+      console.log(`Rows: `, rows);
+
+      return;
+    }
+    row = rows.splice(index, 1)[0];
+    rows.splice(index + 1, 0, row);
+    this.setState({ rows });
+    console.log(`Rows: `, rows);
+  };
+
   render() {
     return (
       <div>
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Container>
-            <TierList rows={this.state.rows} />
+            <TierList
+              rows={this.state.rows}
+              onArrowUpClick={this.onArrowUpClick}
+              onArrowDownClick={this.onArrowDownClick}
+            />
             <Items items={this.state.items} />
           </Container>
         </DragDropContext>
