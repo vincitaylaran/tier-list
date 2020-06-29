@@ -124,26 +124,17 @@ class App extends Component {
   onArrowUpClick = (index) => {
     let rows = JSON.parse(JSON.stringify(this.state.rows));
     let row;
-    console.log(`onArrowUpClick\nIndex: ${index}`);
-    if (!index || index - 1 < 0) {
-      return;
-    }
+    if (!index || index - 1 < 0) return;
     row = rows.splice(index, 1)[0];
     rows.splice(index - 1, 0, row);
     this.setState({ rows });
   };
 
-  // FIXME: works only when you click once.
   onArrowDownClick = (index) => {
-    // console.log(`onArrowDownClick\nIndex: ${index}`);
     let rows = JSON.parse(JSON.stringify(this.state.rows));
+    index = parseInt(index);
     let row;
-    if (!index || index + 1 > rows.length - 1) {
-      console.log(`Rows length: ${rows.length}\nIndex: ${index}`);
-      console.log(`Rows: `, rows);
-
-      return;
-    }
+    if (index < 0 || index + 1 > rows.length) return;
     row = rows.splice(index, 1)[0];
     rows.splice(index + 1, 0, row);
     this.setState({ rows });
